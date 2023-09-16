@@ -38,7 +38,7 @@ export default function App() {
     // </View>
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={FirstPage} />
+        <Stack.Screen name="Silent Hill" component={FirstPage} />
 
         <Stack.Screen name="Details" component={MonsterDetail} />
       </Stack.Navigator>

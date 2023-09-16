@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -6,8 +6,11 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import { Card, Button } from "react-native-elements";
+import { Audio } from "expo-av";
+import silenthillback from "./assets/newtex.jpg";
 
 const monsters = [
   {
@@ -38,39 +41,56 @@ const monsters = [
 ];
 
 const FirstPage = ({ navigation }) => {
+  async function newloadmusic() {
+    const playbackObject = await Audio.Sound.createAsync(
+      require("./assets/nullmoon.mp3"),
+      { shouldPlay: true }
+    );
+    playbackObject.playAsync();
+  }
+  useEffect(() => {
+    newloadmusic();
+  }, []);
+  // const image = { uri: silenthillback };
+
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          width: "100%",
-          textAlign: "center",
-        }}
-      >
-        <ScrollView style={styles.scrollnew}>
-          {monsters.map((monster) => (
-            <View
-              key={monster.name}
-              title={monster.name}
-              image={monster.image}
-              style={styles.detailcard}
-            >
-              <TouchableOpacity
-                style={styles.detailcardtouch}
-                onPress={() => navigation.navigate("Details", { monster })}
+    <ImageBackground
+      source={silenthillback}
+      style={{ width: "100%", height: "100%" }}
+    >
+      <View style={styles.container}>
+        <View
+          style={{
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          <ScrollView style={styles.scrollnew}>
+            {monsters.map((monster) => (
+              <View
+                key={monster.name}
+                title={monster.name}
+                image={monster.image}
+                style={styles.detailcard}
               >
-                <Text style={styles.name}>{monster.name}</Text>
-                <Image source={monster.image} style={styles.image} />
-                {/* <Button
+                <TouchableOpacity
+                  style={styles.detailcardtouch}
+                  onPress={() => navigation.navigate("Details", { monster })}
+                >
+                  <Text style={styles.name}>{monster.name}</Text>
+                  <Image source={monster.image} style={styles.image} />
+                  {/* <Button
                 buttonStyle={styles.button}
                 title="Learn More"
                 // onPress={() => navigation.navigate("Details", { monster })}
               /> */}
-              </TouchableOpacity>
-            </View>
-          ))}
-        </ScrollView>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -80,6 +100,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: "red",
+    // backgroundImage: "url(./assets/newtex.jpg)",
     alignItems: "center",
     justifyContent: "center",
   },

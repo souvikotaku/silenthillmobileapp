@@ -91,6 +91,8 @@ const styles = StyleSheet.create({
     // margin: 15 15 0,
     margin: "5%",
     borderRadius: 10,
+    elevation: 20,
+    shadowColor: "#52006A",
   },
   detailcardtouch: {
     alignItems: "center",

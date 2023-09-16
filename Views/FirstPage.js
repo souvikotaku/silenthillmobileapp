@@ -1,5 +1,12 @@
 import * as React from "react";
-import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { Card, Button } from "react-native-elements";
 
 const monsters = [
@@ -33,19 +40,36 @@ const monsters = [
 const FirstPage = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <ScrollView>
-        {monsters.map((monster) => (
-          <Card key={monster.name} title={monster.name} image={monster.image}>
-            <Text style={styles.name}>{monster.name}</Text>
-            <Image source={monster.image} style={styles.image} />
-            <Button
-              buttonStyle={styles.button}
-              title="Learn More"
-              onPress={() => navigation.navigate("Details", { monster })}
-            />
-          </Card>
-        ))}
-      </ScrollView>
+      <View
+        style={{
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        <ScrollView style={styles.scrollnew}>
+          {monsters.map((monster) => (
+            <View
+              key={monster.name}
+              title={monster.name}
+              image={monster.image}
+              style={styles.detailcard}
+            >
+              <TouchableOpacity
+                style={styles.detailcardtouch}
+                onPress={() => navigation.navigate("Details", { monster })}
+              >
+                <Text style={styles.name}>{monster.name}</Text>
+                <Image source={monster.image} style={styles.image} />
+                {/* <Button
+                buttonStyle={styles.button}
+                title="Learn More"
+                // onPress={() => navigation.navigate("Details", { monster })}
+              /> */}
+              </TouchableOpacity>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -55,10 +79,27 @@ export default FirstPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    // backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
   },
+  detailcard: {
+    backgroundColor: "white",
+    // border: "1px solid red",
+    // borderWidth: "1px",
+    padding: 15,
+    // margin: 15 15 0,
+    margin: "5%",
+    borderRadius: 10,
+  },
+  detailcardtouch: {
+    alignItems: "center",
+    // backgroundColor: "white",
+  },
+  // scrollnew: {
+  //   backgroundColor: "yellow",
+  // },
+
   image: {
     width: 200,
     height: 200,

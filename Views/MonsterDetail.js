@@ -10,7 +10,10 @@ const MonsterDetail = ({ route, navigation }) => {
       <Image source={monster.image} style={styles.image} />
       <Text style={styles.name}>{monster.name}</Text>
       <Text style={styles.description}>{monster.description}</Text>
-      <Button title="Go Back" onPress={() => navigation.navigate("Home")} />
+      <Button
+        title="Go Back"
+        onPress={() => navigation.navigate("Silent Hill")}
+      />
     </View>
   );
 };

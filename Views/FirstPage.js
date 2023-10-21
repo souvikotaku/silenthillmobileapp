@@ -12,7 +12,6 @@ import { Card, Button } from "react-native-elements";
 import { Audio } from "expo-av";
 import silenthillback from "./assets/newtex.jpg";
 
-// hello
 const monsters = [
   {
     name: "Pyramid Head",

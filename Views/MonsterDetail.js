@@ -19,7 +19,7 @@ const MonsterDetail = ({ route, navigation }) => {
       style={{ width: "100%", height: "100%" }}
     >
       <View style={styles.container}>
-        <Image source={monster.image} style={styles.image} />
+        <Image source={{ uri: monster.image }} style={styles.image} />
         <Text style={styles.name}>{monster.name}</Text>
         <Text style={styles.description}>{monster.description}</Text>
         {/* <Button

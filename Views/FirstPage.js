@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -11,6 +11,7 @@ import {
 import { Card, Button } from "react-native-elements";
 import { Audio } from "expo-av";
 import silenthillback from "./assets/newtex.jpg";
+import axios from "axios";
 
 const monsters = [
   {
@@ -120,6 +121,7 @@ const monsters = [
 ];
 
 const FirstPage = ({ navigation }) => {
+  const [monsterdata, setmonsterdata] = useState([]);
   async function newloadmusic() {
     const playbackObject = await Audio.Sound.createAsync(
       require("./assets/nullmoon.mp3"),
@@ -131,6 +133,26 @@ const FirstPage = ({ navigation }) => {
     newloadmusic();
   }, []);
   // const image = { uri: silenthillback };
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://crud-todo-48576-default-rtdb.asia-southeast1.firebasedatabase.app/post.json"
+      )
+      .then((response) => {
+        if (response) {
+          console.log("data", response?.data);
+
+          var myData = Object.keys(response?.data).map((key) => {
+            return response?.data[key];
+          });
+
+          console.log("myData", myData);
+          setmonsterdata(myData);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <ImageBackground
@@ -145,27 +167,31 @@ const FirstPage = ({ navigation }) => {
           }}
         >
           <ScrollView style={styles.scrollnew}>
-            {monsters.map((monster) => (
-              <View
-                key={monster.name}
-                title={monster.name}
-                image={monster.image}
-                style={styles.detailcard}
-              >
-                <TouchableOpacity
-                  style={styles.detailcardtouch}
-                  onPress={() => navigation.navigate("Details", { monster })}
+            {monsterdata &&
+              monsterdata.map((monster) => (
+                <View
+                  key={monster.name}
+                  title={monster.name}
+                  image={monster.image}
+                  style={styles.detailcard}
                 >
-                  <Text style={styles.name}>{monster.name}</Text>
-                  <Image source={monster.image} style={styles.image} />
-                  {/* <Button
+                  <TouchableOpacity
+                    style={styles.detailcardtouch}
+                    onPress={() => navigation.navigate("Details", { monster })}
+                  >
+                    <Text style={styles.name}>{monster.name}</Text>
+                    <Image
+                      source={{ uri: monster.image }}
+                      style={styles.image}
+                    />
+                    {/* <Button
                 buttonStyle={styles.button}
                 title="Learn More"
                 // onPress={() => navigation.navigate("Details", { monster })}
               /> */}
-                </TouchableOpacity>
-              </View>
-            ))}
+                  </TouchableOpacity>
+                </View>
+              ))}
           </ScrollView>
         </View>
       </View>

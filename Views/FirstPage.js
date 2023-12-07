@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import {
   StyleSheet,
   View,
@@ -148,7 +150,33 @@ const FirstPage = ({ navigation }) => {
           });
 
           console.log("myData", myData);
-          setmonsterdata(myData);
+          // setmonsterdata(myData);
+
+          // Add data to AsyncStorage
+          const addDataToStorage = async () => {
+            try {
+              await AsyncStorage.setItem("myData", JSON.stringify(myData));
+            } catch (error) {
+              console.error("Error storing data:", error);
+            }
+          };
+
+          // Retrieve data from AsyncStorage
+          const retrieveDataFromStorage = async () => {
+            try {
+              const storedData = await AsyncStorage.getItem("myData");
+              if (storedData !== null) {
+                const parsedData = JSON.parse(storedData);
+                setmonsterdata(parsedData);
+              }
+            } catch (error) {
+              console.error("Error retrieving data:", error);
+            }
+          };
+
+          // Call the functions
+          addDataToStorage();
+          retrieveDataFromStorage();
         }
       })
       .catch((err) => console.log(err));

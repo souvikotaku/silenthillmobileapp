@@ -142,42 +142,35 @@ const FirstPage = ({ navigation }) => {
         "https://crud-todo-48576-default-rtdb.asia-southeast1.firebasedatabase.app/post.json"
       )
       .then((response) => {
-        if (response) {
-          console.log("data", response?.data);
+        var myData = Object.keys(response?.data).map((key) => {
+          return response?.data[key];
+        });
 
-          var myData = Object.keys(response?.data).map((key) => {
-            return response?.data[key];
-          });
+        // Add data to AsyncStorage
+        const addDataToStorage = async () => {
+          try {
+            await AsyncStorage.setItem("myData", JSON.stringify(myData));
+          } catch (error) {
+            console.error("Error storing data:", error);
+          }
+        };
 
-          console.log("myData", myData);
-          // setmonsterdata(myData);
-
-          // Add data to AsyncStorage
-          const addDataToStorage = async () => {
-            try {
-              await AsyncStorage.setItem("myData", JSON.stringify(myData));
-            } catch (error) {
-              console.error("Error storing data:", error);
+        // Retrieve data from AsyncStorage
+        const retrieveDataFromStorage = async () => {
+          try {
+            const storedData = await AsyncStorage.getItem("myData");
+            if (storedData !== null) {
+              const parsedData = JSON.parse(storedData);
+              setmonsterdata(parsedData);
             }
-          };
+          } catch (error) {
+            console.error("Error retrieving data:", error);
+          }
+        };
 
-          // Retrieve data from AsyncStorage
-          const retrieveDataFromStorage = async () => {
-            try {
-              const storedData = await AsyncStorage.getItem("myData");
-              if (storedData !== null) {
-                const parsedData = JSON.parse(storedData);
-                setmonsterdata(parsedData);
-              }
-            } catch (error) {
-              console.error("Error retrieving data:", error);
-            }
-          };
-
-          // Call the functions
-          addDataToStorage();
-          retrieveDataFromStorage();
-        }
+        // Call the functions
+        addDataToStorage();
+        retrieveDataFromStorage();
       })
       .catch((err) => console.log(err));
   }, []);

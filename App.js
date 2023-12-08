@@ -38,9 +38,17 @@ export default function App() {
     // </View>
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Silent Hill" component={FirstPage} />
+        <Stack.Screen
+          name="Home"
+          component={FirstPage}
+          options={{ title: "Silent Hill" }}
+        />
 
-        <Stack.Screen name="Details" component={MonsterDetail} />
+        <Stack.Screen
+          name="Details"
+          component={MonsterDetail}
+          options={{ title: "Monster Details" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

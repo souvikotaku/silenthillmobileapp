@@ -29,7 +29,7 @@ const MonsterDetail = ({ route, navigation }) => {
         /> */}
         <TouchableOpacity
           style={styles.loginScreenButton}
-          onPress={() => navigation.navigate("Silent Hill")}
+          onPress={() => navigation.navigate("Home")}
           underlayColor="#fff"
         >
           <Text style={styles.loginText}>Go Back</Text>

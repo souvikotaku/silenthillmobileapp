@@ -172,7 +172,21 @@ const FirstPage = ({ navigation }) => {
         addDataToStorage();
         retrieveDataFromStorage();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        const retrieveDataFromStorage = async () => {
+          try {
+            const storedData = await AsyncStorage.getItem("myData");
+            if (storedData !== null) {
+              const parsedData = JSON.parse(storedData);
+              setmonsterdata(parsedData);
+            }
+          } catch (error) {
+            console.error("Error retrieving data:", error);
+          }
+        };
+
+        retrieveDataFromStorage();
+      });
   }, []);
 
   return (

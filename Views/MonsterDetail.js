@@ -8,10 +8,14 @@ import {
 } from "react-native";
 import { Card, Button } from "react-native-elements";
 import silenthillback2 from "./assets/greytex.jpg";
+import { monsterName } from "../redux/dataSlice";
+import { useDispatch } from "react-redux";
 
 import React from "react";
 
 const MonsterDetail = ({ route, navigation }) => {
+  const dispatch = useDispatch();
+
   const { monster } = route.params;
   return (
     <ImageBackground
@@ -29,7 +33,10 @@ const MonsterDetail = ({ route, navigation }) => {
         /> */}
         <TouchableOpacity
           style={styles.loginScreenButton}
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => {
+            dispatch(monsterName("Silent Hill"));
+            navigation.navigate("Home");
+          }}
           underlayColor="#fff"
         >
           <Text style={styles.loginText}>Go Back</Text>

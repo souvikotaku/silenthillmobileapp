@@ -127,7 +127,7 @@ const FirstPage = ({ navigation }) => {
   async function newloadmusic() {
     const playbackObject = await Audio.Sound.createAsync(
       require("./assets/nullmoon.mp3"),
-      { shouldPlay: true }
+      { shouldPlay: true, isLooping: true }
     );
     playbackObject.playAsync();
   }

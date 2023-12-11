@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 
 const DrawerList = [
   { icon: "home-outline", label: "Home", navigateTo: "Home" },
+  { icon: "home-outline", label: "Video", navigateTo: "Video" },
   //   { icon: "account-multiple", label: "Profile", navigateTo: "Profile" },
   //   { icon: "account-group", label: "User", navigateTo: "User" },
   //   { icon: "bookshelf", label: "Library", navigateTo: "" },
@@ -24,7 +25,11 @@ const DrawerLayout = ({ icon, label, navigateTo }) => {
       icon={({ color, size }) => <Icon name={icon} color={color} size={size} />}
       label={label}
       onPress={() => {
-        dispatch(monsterName("Silent Hill"));
+        if (label === "Home") {
+          dispatch(monsterName("Silent Hill"));
+        } else if (label === "Video") {
+          dispatch(monsterName("Videos"));
+        }
 
         navigation.navigate(navigateTo);
       }}

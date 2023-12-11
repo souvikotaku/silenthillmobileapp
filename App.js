@@ -8,6 +8,7 @@ import {
   Image,
 } from "react-native";
 import FirstPage from "./Views/FirstPage";
+import VideoPage from "./Views/VideoPage";
 import MonsterDetail from "./Views/MonsterDetail";
 import DrawerContent from "./Views/DrawerContent";
 import { NavigationContainer } from "@react-navigation/native";
@@ -27,6 +28,11 @@ const StackNav = () => {
         headerShown: false,
       }}
     >
+      <Stack.Screen
+        name="Video"
+        component={VideoPage}
+        options={{ title: "Videos" }}
+      />
       <Stack.Screen
         name="Home"
         component={FirstPage}

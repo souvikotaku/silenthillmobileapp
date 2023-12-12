@@ -29,11 +29,6 @@ const StackNav = () => {
       }}
     >
       <Stack.Screen
-        name="Video"
-        component={VideoPage}
-        options={{ title: "Videos" }}
-      />
-      <Stack.Screen
         name="Home"
         component={FirstPage}
         // options={{ title: "Silent Hill" }}
@@ -43,6 +38,11 @@ const StackNav = () => {
         name="Details"
         component={MonsterDetail}
         // options={{ title: "Monster Details" }}
+      />
+      <Stack.Screen
+        name="Video"
+        component={VideoPage}
+        // options={{ title: "Videos" }}
       />
     </Stack.Navigator>
   );
